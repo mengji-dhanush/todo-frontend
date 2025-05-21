@@ -31,8 +31,8 @@ export default function Signup() {
 
       alert("Signup successful");
       navigate("/");
-    } catch {
-      alert("Some error occurred");
+    } catch (err) {
+      alert(err);
     }
   };
 
