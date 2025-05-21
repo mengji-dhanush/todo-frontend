@@ -11,7 +11,7 @@ export default function Login({ setIsLoggedIn }) {
   };
 
   const signup = () => {
-    navigate("https://todo-backend-p0if.onrender.com/signup");
+    navigate("/signup");
   };
 
   const login = async (e) => {
@@ -31,7 +31,7 @@ export default function Login({ setIsLoggedIn }) {
 
       if (response.ok) {
         setIsLoggedIn(true);
-        navigate("https://todo-backend-p0if.onrender.com/");
+        navigate("/");
       } else {
         const err = await response.json();
         alert(err.error || "Login failed");

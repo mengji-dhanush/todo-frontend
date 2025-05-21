@@ -30,14 +30,14 @@ export default function Signup() {
       }
 
       alert("Signup successful");
-      navigate("https://todo-backend-p0if.onrender.com/");
+      navigate("/");
     } catch {
       alert("Some error occurred");
     }
   };
 
   const login = () => {
-    navigate("https://todo-backend-p0if.onrender.com/");
+    navigate("/");
   };
 
   return (

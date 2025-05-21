@@ -150,7 +150,7 @@ export default function App() {
     })
       .then(() => {
         setIsLoggedIn(false);
-        navigate("https://todo-backend-p0if.onrender.com/");
+        navigate("/");
       })
       .catch((err) => console.error(err));
   };
