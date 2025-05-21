@@ -11,7 +11,6 @@ export default function Signup() {
   };
 
   const signup = async (e) => {
-    e.preventDefault();
     try {
       const response = await fetch(
         "https://todo-backend-p0if.onrender.com/signup",
@@ -41,33 +40,46 @@ export default function Signup() {
   };
 
   return (
-    <>
-      <h2>Signup</h2>
-      <form onSubmit={signup}>
-        <input
-          type="text"
-          name="username"
-          onChange={handleChange}
-          value={form.username}
-          required
-          placeholder="username"
-        />
-        <br />
-        <input
-          type="password"
-          name="password"
-          onChange={handleChange}
-          value={form.password}
-          required
-          placeholder="password"
-        />
-        <br />
-        <br />
-        <button type="submit">Signup</button>
-      </form>
+    <div className="w-full h-screen flex flex-wrap justify-center items-center bg-linear-to-t from-sky-500 to-indigo-500">
       <div>
-        Have an account? <button onClick={login}>Login</button>
+        <div className="w-full text-center text-5xl font-bold">Signup</div>
+        <div className="border-3 border-black rounded h-44 w-60 mt-4">
+          <form className="flex flex-wrap">
+            <input
+              name="username"
+              placeholder="username"
+              onChange={handleChange}
+              value={form.username}
+              required
+              className="w-full border-2 m-1 rounded"
+            />
+            <input
+              name="password"
+              type="password"
+              placeholder="password"
+              value={form.password}
+              onChange={handleChange}
+              required
+              className="w-full border-2 m-1 rounded"
+            />
+            <button
+              onClick={signup}
+              className="rounded bg-black text-white text-xl font-semibold m-auto mt-2 cursor-pointer"
+            >
+              Signup
+            </button>
+            <div>
+              already have an account?{" "}
+              <button
+                onClick={login}
+                className="rounded bg-black text-white text-xl font-semibold m-1 cursor-pointer"
+              >
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
