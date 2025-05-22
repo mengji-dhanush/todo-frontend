@@ -6,7 +6,8 @@ const TodoForm = ({
   editingId,
   editTodo,
 }) => {
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (!text.trim()) return;
     addTodo(text);
     setText("");

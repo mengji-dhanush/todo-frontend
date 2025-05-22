@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Login from "./Login";
 
 export default function Signup() {
   let [form, setForm] = useState({ username: "", password: "" });
@@ -11,6 +10,7 @@ export default function Signup() {
   };
 
   const signup = async (e) => {
+    e.preventDefault();
     try {
       const response = await fetch(
         "https://todo-backend-p0if.onrender.com/signup",
@@ -35,7 +35,8 @@ export default function Signup() {
     }
   };
 
-  const login = () => {
+  const login = (e) => {
+    e.preventDefault();
     navigate("/");
   };
 

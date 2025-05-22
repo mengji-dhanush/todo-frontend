@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login({ setIsLoggedIn }) {
   const [form, setForm] = useState({ username: "", password: "" });
-  console.log(typeof setIsLoggedIn);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const signup = () => {
+  const signup = (e) => {
+    e.preventDefault();
     navigate("/signup");
   };
 
@@ -46,7 +46,7 @@ export default function Login({ setIsLoggedIn }) {
       <div>
         <div className="w-full text-center text-5xl font-bold">Login</div>
         <div className="border-3 border-black rounded h-44 w-60 mt-4">
-          <form onSubmit={login} className="flex flex-wrap">
+          <form className="flex flex-wrap">
             <input
               name="username"
               placeholder="username"
@@ -65,7 +65,7 @@ export default function Login({ setIsLoggedIn }) {
               className="w-full border-2 m-1 rounded"
             />
             <button
-              type="submit"
+              onClick={login}
               className="rounded bg-black text-white text-xl font-semibold m-auto mt-2 cursor-pointer"
             >
               Login
