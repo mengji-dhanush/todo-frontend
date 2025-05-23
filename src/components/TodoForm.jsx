@@ -28,14 +28,14 @@ const TodoForm = ({
         {!isEditing ? (
           <button
             onClick={handleSubmit}
-            className="rounded bg-green-700 text-white w-16"
+            className="rounded bg-green-700 text-white w-16 cursor-pointer"
           >
             Add
           </button>
         ) : (
           <button
             onClick={() => editTodo(editingId, text)}
-            className="rounded bg-green-700 text-white w-16"
+            className="rounded bg-green-700 text-white w-16 cursor-pointer"
           >
             Save
           </button>
