@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { todoContext } from "../pages/Todo";
+
 const TodoItem = ({ todo, toggleTodo, deleteTodo, handleEditButton }) => {
   return (
     <div className="m-4">

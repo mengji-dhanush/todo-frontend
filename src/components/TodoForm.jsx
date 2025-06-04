@@ -1,11 +1,9 @@
-const TodoForm = ({
-  addTodo,
-  text,
-  setText,
-  isEditing,
-  editingId,
-  editTodo,
-}) => {
+import { useContext } from "react";
+import { todoContext } from "../pages/Todo";
+
+const TodoForm = () => {
+  let { addTodo, text, setText, isEditing, editingId, editTodo } =
+    useContext(todoContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!text.trim()) return;

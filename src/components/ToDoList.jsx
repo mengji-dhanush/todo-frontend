@@ -1,6 +1,10 @@
 import TodoItem from "./TodoItem";
+import { useContext } from "react";
+import { todoContext } from "../pages/Todo";
 
-const TodoList = ({ todos, toggleTodo, deleteTodo, handleEditButton }) => {
+const TodoList = () => {
+  let { todos, toggleTodo, deleteTodo, handleEditButton } =
+    useContext(todoContext);
   return (
     <div>
       {todos.map((todo) => (

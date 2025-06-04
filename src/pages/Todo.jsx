@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/ToDoList";
 import Login from "./components/Login";
 import { useNavigate } from "react-router-dom";
+
+const todoContext = createContext();
+
 export default function App() {
   const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
@@ -53,15 +56,12 @@ export default function App() {
 
   const addTodo = async (todo) => {
     try {
-      const res = await fetch(
-        "https://todo-backend-p0if.onrender.com/newtask",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ todo }),
-        }
-      );
+      const res = await fetch("https://todo-backend-p0if.onrender.com/todos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ todo }),
+      });
       if (res.ok) {
         const refreshed = await fetch(
           "https://todo-backend-p0if.onrender.com/todos",
@@ -80,9 +80,9 @@ export default function App() {
   const toggleTodo = async (id) => {
     try {
       let res = await fetch(
-        `https://todo-backend-p0if.onrender.com/completed/${id}`,
+        `https://todo-backend-p0if.onrender.com/todos/${id}`,
         {
-          method: "POST",
+          method: "PATCH",
           credentials: "include",
         }
       );
@@ -118,9 +118,9 @@ export default function App() {
   const editTodo = async (id, newText) => {
     try {
       const res = await fetch(
-        `https://todo-backend-p0if.onrender.com/task/edit/${id}`,
+        `https://todo-backend-p0if.onrender.com/todos/${id}`,
         {
-          method: "POST",
+          method: "PUT",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
           body: JSON.stringify({ text: newText }),
@@ -158,8 +158,8 @@ export default function App() {
 
   const deleteTodo = async (id) => {
     try {
-      await fetch(`https://todo-backend-p0if.onrender.com/task/${id}`, {
-        method: "POST",
+      await fetch(`https://todo-backend-p0if.onrender.com/todos/${id}`, {
+        method: "DELETE",
         credentials: "include",
       });
       setTodos(todos.filter((todo) => todo._id !== id));
@@ -168,40 +168,47 @@ export default function App() {
     }
   };
 
-  return isLoggedIn ? (
-    <div className="w-full h-screen flex flex-wrap justify-center items-center bg-linear-65 from-purple-500 to-pink-500">
-      <div>
-        <div className="w-full text-center text-3xl font-semibold">
-          My Todo-list
-        </div>
-        <div className="border-3 border-black rounded">
-          <div className="w-80 h-auto">
-            <TodoForm
-              addTodo={addTodo}
-              text={text}
-              setText={setText}
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-              editTodo={editTodo}
-              editingId={editingId}
-            />
-            <TodoList
-              todos={todos}
-              toggleTodo={toggleTodo}
-              deleteTodo={deleteTodo}
-              handleEditButton={handleEditButton}
-            />
+  return (
+    <todoContext.Provider
+      value={{
+        addTodo,
+        text,
+        setText,
+        isEditing,
+        setIsEditing,
+        editTodo,
+        editingId,
+        todos,
+        toggleTodo,
+        deleteTodo,
+        handleEditButton,
+        setIsLoggedIn,
+      }}
+    >
+      {isLoggedIn ? (
+        <div className="w-full h-screen flex flex-wrap justify-center items-center bg-linear-65 from-purple-500 to-pink-500">
+          <div>
+            <div className="w-full text-center text-3xl font-semibold">
+              My Todo-list
+            </div>
+            <div className="border-3 border-black rounded">
+              <div className="w-80 h-auto">
+                <TodoForm />
+                <TodoList />
+              </div>
+            </div>
+            <button
+              onClick={logout}
+              className="bg-red-500 text-black rounded font-semibold text-l my-4 cursor-pointer"
+            >
+              Logout
+            </button>
           </div>
         </div>
-        <button
-          onClick={logout}
-          className="bg-red-500 text-black rounded font-semibold text-l my-4 cursor-pointer"
-        >
-          Logout
-        </button>
-      </div>
-    </div>
-  ) : (
-    <Login setIsLoggedIn={setIsLoggedIn} />
+      ) : (
+        <Login />
+      )}
+    </todoContext.Provider>
   );
 }
+export { todoContext };
