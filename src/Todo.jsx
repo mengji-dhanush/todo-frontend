@@ -50,6 +50,7 @@ export default function App() {
   }, [isLoggedIn]);
 
   if (!isLoggedIn) return <Login setIsLoggedIn={setIsLoggedIn} />;
+
   const addTodo = async (todo) => {
     try {
       const res = await fetch(
