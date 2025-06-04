@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Todo from "./Todo";
+import Todo from "./pages/Todo";
 import Signup from "./pages/Signup";
 
 export default function App() {
