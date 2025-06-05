@@ -1,7 +1,7 @@
 import { useEffect, useState, createContext } from "react";
-import TodoForm from "./components/TodoForm";
-import TodoList from "./components/ToDoList";
-import Login from "./components/Login";
+import TodoForm from "../components/TodoForm";
+import TodoList from "../components/ToDoList";
+import Login from "./Login";
 import { useNavigate } from "react-router-dom";
 
 const todoContext = createContext();
